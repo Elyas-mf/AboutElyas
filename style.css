@@ -398,7 +398,7 @@ span {
 .label {
   position: absolute;
   bottom: -30px;
-  font-size: 1.1em;
+  font-size: 1.7em;
   text-align: center;
   width: 100%;
 }
@@ -578,6 +578,3 @@ section {
 }
 
 
-.circular-skills .label {
-  font-size: 1.8rem;
-}

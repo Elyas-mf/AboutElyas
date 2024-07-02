@@ -59,68 +59,6 @@ ScrollReveal().reveal('.home-content p, .about-content', { origin: "top"});
 
 
 
-const typed = new Typed('.multiple-text', {
-  strings: ['FrontEnd Developer' , 'Mobile Developer' , 'Designer'],
-  typeSpeed: 50,
-  backSpeed: 70,
-  backDelay: 1000,
-  loop: true
-
-});
-
-const typedd = new Typed('.multiple-text-about', {
-  strings: ['FrontEnd Developer' , 'Mobile Developer' , 'Designer'],
-  typeSpeed: 50,
-  backSpeed: 70,
-  backDelay: 1000,
-  loop: true
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", function() {
   const circles = document.querySelectorAll('.circle');
 
