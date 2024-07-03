@@ -245,7 +245,7 @@ span {
   border-radius: 10px;
   text-align: right;
   padding-right: 10px;
-  color: #fff;
+  color: #000000;
   line-height: 15px;
   width: 0;
   animation: load 2s forwards;
@@ -419,6 +419,8 @@ span {
 
 
 
+
+
 .contact-info {
   display: inline-block;
   background:var(--second-bg-color);
@@ -545,10 +547,7 @@ section {
 }
 
 
-.home-img img {
-  width: 70vw;
-  margin-top: 4rem;
-}
+
 
 
 .about {
