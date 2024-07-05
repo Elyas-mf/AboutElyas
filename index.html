@@ -8,27 +8,7 @@
 <title>About me</title>
 <script src="https://unpkg.com/scrollreveal"></script>
 
-<script>
-  function submitForm(event) {
-  event.preventDefault(); // Prevent the default form submission
 
-  const form = document.getElementById('contactForm');
-  const formData = new FormData(form);
-
-  fetch('http://localhost/project/receiveAndDisplayForm.php', { // Adjust the URL to match your PHP server setup
-      method: 'POST',
-      body: formData,
-  })
-  .then(response => response.text())
-  .then(data => {
-      document.getElementById('response').innerHTML = '<p>Thank you for your message!</p>';
-      form.reset(); // Reset the form fields
-  })
-  .catch(error => {
-      console.error('Error:', error);
-  });
-}
-</script>
 
 <!-- box Icons -->
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -210,7 +190,7 @@
 
 
   <section>
-    <h1>Contact Us!</h1>
+    <h1>Contact Us !!!</h1>
     <form id="contactForm" onsubmit="submitForm(event)">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
