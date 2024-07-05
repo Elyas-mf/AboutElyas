@@ -107,15 +107,13 @@ const typedd = new Typed('.multiple-text-about', {
 
 });
 
-
-
 function submitForm(event) {
   event.preventDefault(); // Prevent the default form submission
 
   const form = document.getElementById('contactForm');
   const formData = new FormData(form);
 
-  fetch('http://localhost/project/receiveForm.php', {
+  fetch('http://localhost/project/receiveAndDisplayForm.php', { // Adjust the URL to match your PHP server setup
       method: 'POST',
       body: formData,
   })
