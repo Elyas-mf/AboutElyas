@@ -114,7 +114,7 @@ function submitForm(event) {
 
   // Optional: You can validate form data here before proceeding
 
-  fetch('http://localhost/project/messages.php', {
+  fetch('http://localhost/project/receiveAndDisplayForm.php', {
       method: 'POST',
       body: formData
   })
