@@ -107,35 +107,31 @@ const typedd = new Typed('.multiple-text-about', {
 
 });
 
+function submitForm(event) {
+  event.preventDefault(); // Prevent the form from submitting
+  const form = event.target;
+  const formData = new FormData(form);
 
-    function submitForm(event) {
-        event.preventDefault(); // Prevent the form from submitting
-        const form = event.target;
-        const formData = new FormData(form);
+  // Optional: You can validate form data here before proceeding
 
-        // Fetch request to send form data to the server
-        fetch('http://localhost/project/receiveAndDisplayForm.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
-        .then(data => {
-            // Display "Thank you" message or any other feedback
-            document.getElementById('response').innerHTML = '<p>Thank you for your message!</p>';
-            form.reset(); // Reset the form fields after submission
-
-            // Hide form fields
-            document.getElementById('contactForm').style.display = 'none';
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Handle errors or display an error message
-            document.getElementById('response').innerHTML = '<p>There was an error submitting your message. Please try again later.</p>';
-        });
-    }
-
+  fetch('http://localhost/project/receiveAndDisplayForm.php', {
+      method: 'POST',
+      body: formData
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+      return response.text();
+  })
+  .then(data => {
+      // Display "Thank you" message or any other feedback
+      document.getElementById('response').innerHTML = '<p>Thank you for your message!</p>';
+      form.reset(); // Optional: Reset the form fields after submission
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      // Handle errors or display an error message
+      document.getElementById('response').innerHTML = '<p>There was an error submitting your message. Please try again later.</p>';
+  });
+}
