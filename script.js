@@ -135,3 +135,16 @@ function submitForm(event) {
       document.getElementById('response').innerHTML = '<p>There was an error submitting your message. Please try again later.</p>';
   });
 }
+
+function submitForm(event) {
+  event.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+
+  document.getElementById('contactForm').reset();
+  document.getElementById('response').innerHTML = "Thank you for your message!";
+
+  // Hide form fields
+  document.getElementById('contactForm').style.display = 'none';
+}
