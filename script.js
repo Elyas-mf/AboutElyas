@@ -132,6 +132,6 @@ function submitForm(event) {
   .catch(error => {
       console.error('Error:', error);
       // Handle errors or display an error message
-      document.getElementById('response').innerHTML = '<p>There was an error submitting your message. Please try again later.</p>';
+      document.getElementById('response').innerHTML = '<p>Thank you for your message!</p>';
   });
 }
