@@ -107,44 +107,35 @@ const typedd = new Typed('.multiple-text-about', {
 
 });
 
-function submitForm(event) {
-  event.preventDefault(); // Prevent the form from submitting
-  const form = event.target;
-  const formData = new FormData(form);
 
-  // Optional: You can validate form data here before proceeding
+    function submitForm(event) {
+        event.preventDefault(); // Prevent the form from submitting
+        const form = event.target;
+        const formData = new FormData(form);
 
-  fetch('http://localhost/project/receiveAndDisplayForm.php', {
-      method: 'POST',
-      body: formData
-  })
-  .then(response => {
-      if (!response.ok) {
-          throw new Error('Network response was not ok');
-      }
-      return response.text();
-  })
-  .then(data => {
-      // Display "Thank you" message or any other feedback
-      document.getElementById('response').innerHTML = '<p>Thank you for your message!</p>';
-      form.reset(); // Optional: Reset the form fields after submission
-  })
-  .catch(error => {
-      console.error('Error:', error);
-      // Handle errors or display an error message
-      document.getElementById('response').innerHTML = '<p>There was an error submitting your message. Please try again later.</p>';
-  });
-}
+        // Fetch request to send form data to the server
+        fetch('http://localhost/project/receiveAndDisplayForm.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            // Display "Thank you" message or any other feedback
+            document.getElementById('response').innerHTML = '<p>Thank you for your message!</p>';
+            form.reset(); // Reset the form fields after submission
 
-function submitForm(event) {
-  event.preventDefault();
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
+            // Hide form fields
+            document.getElementById('contactForm').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle errors or display an error message
+            document.getElementById('response').innerHTML = '<p>There was an error submitting your message. Please try again later.</p>';
+        });
+    }
 
-  document.getElementById('contactForm').reset();
-  document.getElementById('response').innerHTML = "Thank you for your message!";
-
-  // Hide form fields
-  document.getElementById('contactForm').style.display = 'none';
-}
