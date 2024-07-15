@@ -426,14 +426,14 @@ span {
   background:var(--second-bg-color);
   margin-top: 20px;
   border-radius: 5%;
-  padding-left: 8%;
-  padding-right: 8%;
+  padding-left: 10%;
+  padding-right: 10%;
   padding-bottom: 3%;
   box-shadow: 0 0 50px rgb(0, 0, 0); /* Drop shadow */
 }
 
 .contact-info .icon {
-  margin-bottom: 2px;
+  margin-bottom: 1px;
   font-size: 15rem;
   color: var(--main-color);
 }
@@ -441,8 +441,14 @@ span {
 
 
 .contact-info .text p {
-  font-size: 1.5em;
+  font-size: 2em;
   color: var(--text-color); /* Adjust text color */
+  padding-bottom: 1%;
+  
+}
+
+.contact-info .text{
+
   padding-bottom: 5%;
   
 }
@@ -577,3 +583,62 @@ section {
 }
 
 
+
+
+
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-group {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.form-group + .form-group {
+  margin-left: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.form-input, .form-textarea {
+  background-color: #1f242d;
+  color: white;
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-button {
+  background-color: var(--main-color);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.form-button:hover {
+  background-color: #45a049;
+}
+
+#response {
+  margin-top: 20px;
+  text-align: center;
+}

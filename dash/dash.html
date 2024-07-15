@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard </title>
+  <link rel="stylesheet" href="dash.css" />
+  <!-- Font Awesome Cdn Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <style>
+    /* Your CSS styles here */  
+    /* Table Style */
+    .table-container {
+      margin-top: 20px;
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .table thead {
+      background-color: #f2f2f2;
+    }
+    .table th,
+    .table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    .table tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .table tbody tr:hover {
+      background-color: #e9ecef;
+    }
+    .table td:last-child {
+      text-align: center;
+    }
+    .table .btn {
+      background-color: #dc3545;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .table .btn:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="logo">
+        <img src="wsol.png" alt="">
+        <span class="nav-item">DashBoard</span>
+      </div>
+      <ul>
+        <li><a href="#" id="home-link">
+          <i class="fas fa-home"></i>
+          <span class="nav-item">Home</span>
+        </a></li>
+      
+        <li><a href="#" id="forms-link">
+          <i class="fas fa-tasks"></i>
+          <span class="nav-item">Forms</span>
+        </a></li>
+
+        <li><a href="#" id="profile-link">
+          <i class="fas fa-user"></i>
+          <span class="nav-item">Profile</span>
+        </a></li>
+        
+        <li><a href="#" class="logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span class="nav-item">Log out</span>
+        </a></li>
+      </ul>
+    </nav>
+
+    <section class="main" id="main">
+      <h1>Home Section</h1>
+      <h2>My status</h2>
+      <div class="course-box">
+        <div class="course">
+          <div class="box">
+            <h3>Visitors</h3>
+            <p>Loading..</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="main" id="profile" style="display: none;">
+      <h1>Profile Section</h1>
+      <p>Your profile section content goes here.</p>
+    </section>
+
+    <section class="main" id="forms" style="display: none;">
+      <h1>Forms Section</h1>
+      <div class="table-container">
+        <table class="table" id="forms-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Message</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table rows will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="dash.js"></script>
+</body>
+</html>

@@ -1,12 +1,6 @@
-
-
-
-// navbar icon 
-
+// Navbar icon
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
-
-
 
 menuIcon.onclick = () => {
   menuIcon.classList.toggle('bx-x');
@@ -28,37 +22,32 @@ window.onscroll = () => {
         link.classList.remove('active');
         document.querySelector('header nav a[href*="' + id + '"]').classList.add('active');
       });
-      
     };
   });
 
-  // sticky nav bar
-
-let header = document.querySelector('header');
-
-header.classList.toggle('sticky', window.scrollY >100);
-// remove navbar
-menuIcon.classList.remove('bx-x');
-navbar.classList.remove('active');
+  // Sticky navbar
+  let header = document.querySelector('header');
+  header.classList.toggle('sticky', window.scrollY > 100);
+  
+  // Remove navbar
+  menuIcon.classList.remove('bx-x');
+  navbar.classList.remove('active');
 };
 
-
-// scroll animate
-
+// Scroll animate
 ScrollReveal({
   reset: true,
-  distence: '80px',
+  distance: '80px',
   duration: 2000,
   delay: 200
 });
 
 ScrollReveal().reveal('.home-content, .heading', { origin: 'top'});
 ScrollReveal().reveal('.home-img, .services-container, .projects-box, .contact-info, .skills-content, .circular-skills', { origin: 'bottom'});
-ScrollReveal().reveal('.home-content h1, .about-img', { origin: "top"});
-ScrollReveal().reveal('.home-content p, .about-content', { origin: "top"});
+ScrollReveal().reveal('.home-content h1, .about-img', { origin: 'top'});
+ScrollReveal().reveal('.home-content p, .about-content', { origin: 'top'});
 
-
-
+// Circular skills animation
 document.addEventListener("DOMContentLoaded", function() {
   const circles = document.querySelectorAll('.circle');
 
@@ -88,50 +77,21 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-
+// Typed.js animations
 const typed = new Typed('.multiple-text', {
-  strings: ['FrontEnd Developer' , 'Mobile Developer' , 'Designer'],
+  strings: ['FrontEnd Developer', 'Mobile Developer', 'Designer'],
   typeSpeed: 50,
   backSpeed: 70,
   backDelay: 1000,
   loop: true
-
 });
 
 const typedd = new Typed('.multiple-text-about', {
-  strings: ['FrontEnd Developer' , 'Mobile Developer' , 'Designer'],
+  strings: ['FrontEnd Developer', 'Mobile Developer', 'Designer'],
   typeSpeed: 50,
   backSpeed: 70,
   backDelay: 1000,
   loop: true
-
 });
 
-function submitForm(event) {
-  event.preventDefault(); // Prevent the form from submitting
-  const form = event.target;
-  const formData = new FormData(form);
 
-  // Optional: You can validate form data here before proceeding
-
-  fetch('http://localhost/project/receiveAndDisplayForm.php', {
-      method: 'POST',
-      body: formData
-  })
-  .then(response => {
-      if (!response.ok) {
-          throw new Error('Network response was not ok');
-      }
-      return response.text();
-  })
-  .then(data => {
-      // Display "Thank you" message or any other feedback
-      document.getElementById('response').innerHTML = '<p>Thank you for your message!</p>';
-      form.reset(); // Optional: Reset the form fields after submission
-  })
-  .catch(error => {
-      console.error('Error:', error);
-      // Handle errors or display an error message
-      document.getElementById('response').innerHTML = '<p>Thank you for your message!</p>';
-  });
-}
