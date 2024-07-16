@@ -3,12 +3,13 @@
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <meta charset="UTF-8" />
-  <title>Dashboard </title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="dash.css" />
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
   <style>
-    /* Your CSS styles here */  
+    /* Your existing CSS styles here */  
+
     /* Table Style */
     .table-container {
       margin-top: 20px;
@@ -57,7 +58,7 @@
   <div class="container">
     <nav>
       <div class="logo">
-        <img src="wsol.png" alt="">
+        <img src="images\me.png" alt="">
         <span class="nav-item">DashBoard</span>
       </div>
       <ul>
@@ -90,7 +91,7 @@
         <div class="course">
           <div class="box">
             <h3>Visitors</h3>
-            <p>Loading..</p>
+            <p id="visitor-count">Loading..</p>
           </div>
 
           <div class="box">
@@ -98,9 +99,7 @@
             <p id="download-count">Loading...</p>
           </div>
         </div>
-      </div>
-
-      
+      </div>      
     </section>
 
     <section class="main" id="profile" style="display: none;">
@@ -129,40 +128,72 @@
     </section>
   </div>
 
-  
+  <!-- Link to your JavaScript file -->
   <script src="dash.js"></script>
 
   <script>
     $(document).ready(function() {
-    // Function to fetch download count from server
-    function fetchDownloadCount() {
+      // Function to fetch visitor count from server
+      function fetchVisitorCount() {
         $.ajax({
-            url: 'fetch_download_count.php',
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                if (response.success) {
-                    // Update the download count in the DOM
-                    $('#download-count').text(response.count);
-                } else {
-                    console.error('Error fetching download count:', response.message);
-                    $('#download-count').text('Error');
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching download count:', error);
-                $('#download-count').text('Error');
+          url: 'fetch_visitor_count.php',
+          type: 'GET',
+          dataType: 'json',
+          success: function(response) {
+            if (response.success) {
+              // Update the visitor count in the DOM
+              $('#visitor-count').text(response.count);
+            } else {
+              console.error('Error fetching visitor count:', response.message);
+              $('#visitor-count').text('Error');
             }
+          },
+          error: function(xhr, status, error) {
+            console.error('Error fetching visitor count:', error);
+            $('#visitor-count').text('Error');
+          }
         });
-    }
+      }
 
-    // Initial fetch of download count when page loads
-    fetchDownloadCount();
+      // Initial fetch of visitor count when page loads
+      fetchVisitorCount();
 
-    // Interval to periodically fetch download count (every 5 seconds for example)
-    setInterval(fetchDownloadCount, 5000); // Adjust interval as needed
+      // Interval to periodically fetch visitor count (every 5 seconds for example)
+      setInterval(fetchVisitorCount, 5000); // Adjust interval as needed
+    });
+  </script>
+
+<script>
+  $(document).ready(function() {
+  // Function to fetch download count from server
+  function fetchDownloadCount() {
+      $.ajax({
+          url: 'fetch_download_count.php',
+          type: 'GET',
+          dataType: 'json',
+          success: function(response) {
+              if (response.success) {
+                  // Update the download count in the DOM
+                  $('#download-count').text(response.count);
+              } else {
+                  console.error('Error fetching download count:', response.message);
+                  $('#download-count').text('Error');
+              }
+          },
+          error: function(xhr, status, error) {
+              console.error('Error fetching download count:', error);
+              $('#download-count').text('Error');
+          }
+      });
+  }
+
+  // Initial fetch of download count when page loads
+  fetchDownloadCount();
+
+  // Interval to periodically fetch download count (every 5 seconds for example)
+  setInterval(fetchDownloadCount, 5000); // Adjust interval as needed
 });
 
-  </script>
+</script>
 </body>
 </html>

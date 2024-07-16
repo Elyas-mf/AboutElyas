@@ -254,6 +254,27 @@
    </script>
 
 
+
+<!-- Add a script to update visitor count -->
+<script>
+  $(document).ready(function() {
+    $.ajax({
+      url: 'update_visitor_count.php',
+      type: 'POST',
+      data: { action: 'update_visitor_count' },
+      dataType: 'json',
+      success: function(response) {
+        console.log('Visitor count updated successfully');
+      },
+      error: function(xhr, status, error) {
+        console.error('Error updating visitor count:', error);
+      }
+    });
+  });
+</script>
+
+
+
    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
   <script src="script.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
