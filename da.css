@@ -11,7 +11,9 @@
 body {
   min-height: 100vh;
  /* Fallback for older browsers */
-  background: linear-gradient(to bottom, #61009E, #5899FF);
+ background: url(dash.jpg) no-repeat;
+ background-size: cover;
+ background-position: center;
   padding-left: 7%;
 
 }
@@ -216,21 +218,28 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
   gap: 20px; /* Gap between grid items */
+  width: 50%;
   
+
 }
+
 
 /* Style for each box */
 .box {
-  background-color: #fff; /* White background */
+  background-color: #161a2d; /* White background */
   padding: 20px; /* Padding inside the box */
   border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Shadow for a bit of depth */
+  box-shadow: 0 0 50% rgba(0, 0, 0, 0.1); /* Shadow for a bit of depth */
+  padding-bottom: 30%;
+  border-style: outset;
+  border-width: 2px;
+  border-color: rgb(0, 0, 0);
 }
 
 /* Heading style for each box */
 .box h3 {
   margin-bottom: 10px; /* Space below heading */
-  color: #333; /* Dark text color */
+  color: #ffffff; /* Dark text color */
 }
 
 /* Paragraph style inside the box */

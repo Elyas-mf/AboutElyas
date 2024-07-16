@@ -47,11 +47,36 @@ body {
   border: none;
   outline: none;
   border: 2px solid rgba(255, 255, 255, .2);
-  border-radius: 40px;
+  border-radius: 10px;
   font-size: 16px;
   color: #fff;
-  padding: 20px 45px 20px 20px;
+  padding-left: 5%;
 }
+
+.input-box label{
+
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 19px;
+  pointer-events: none;
+  transition: .3s;
+}
+
+input:focus{
+  border: 2px solid #1cd679;
+}
+
+input:focus ~ label,
+input:valid ~ label{
+  top: 0;
+  font-size: 16px;
+  padding: 0 10px;
+  background: #040025;
+}
+
 .input-box input::placeholder {
   color: #fff;
 }
@@ -83,11 +108,13 @@ body {
     <form id="login-form" action="login.php" method="POST">
       <h1 style="color: #fff;">Login</h1>
       <div class="input-box">
-        <input type="text" id="username" name="username" placeholder="Username" required>
+        <input type="text" id="username" name="username" required>
+        <label>Username</label>
         <i class='bx bxs-user'></i>
       </div>
       <div class="input-box">
-        <input type="password" id="password" name="password" placeholder="Password" required>
+        <input type="password" id="password" name="password"  required>
+        <label>Passwords</label>
         <i class='bx bxs-lock-alt'></i>
       </div>
       <button type="submit" class="btn">Login</button>

@@ -69,12 +69,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <div class="grid-container">
     <div class="box">
       <h3>Visitors</h3>
-      <p id="visitor-count">Loading..</p>
+      <p id="visitor-count" style="color: white;">Loading..</p>
       
     </div>
     <div class="box">
       <h3>Download CV Click</h3>
-      <p id="download-count">Loading...</p>
+      <p id="download-count" style="color: white;">Loading...</p>
     </div>
   </div>
 </section>
