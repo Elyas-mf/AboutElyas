@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <meta charset="UTF-8" />
   <title>Dashboard </title>
   <link rel="stylesheet" href="dash.css" />
@@ -91,8 +92,15 @@
             <h3>Visitors</h3>
             <p>Loading..</p>
           </div>
+
+          <div class="box">
+            <h3>Download CV Click</h3>
+            <p id="download-count">Loading...</p>
+          </div>
         </div>
       </div>
+
+      
     </section>
 
     <section class="main" id="profile" style="display: none;">
@@ -122,7 +130,39 @@
   </div>
 
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="dash.js"></script>
+
+  <script>
+    $(document).ready(function() {
+    // Function to fetch download count from server
+    function fetchDownloadCount() {
+        $.ajax({
+            url: 'fetch_download_count.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    // Update the download count in the DOM
+                    $('#download-count').text(response.count);
+                } else {
+                    console.error('Error fetching download count:', response.message);
+                    $('#download-count').text('Error');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching download count:', error);
+                $('#download-count').text('Error');
+            }
+        });
+    }
+
+    // Initial fetch of download count when page loads
+    fetchDownloadCount();
+
+    // Interval to periodically fetch download count (every 5 seconds for example)
+    setInterval(fetchDownloadCount, 5000); // Adjust interval as needed
+});
+
+  </script>
 </body>
 </html>

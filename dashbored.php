@@ -45,5 +45,3 @@ if (isset($_POST['action']) && $_POST['action'] === 'delete') {
 
 $conn->close();
 ?>
-
-
