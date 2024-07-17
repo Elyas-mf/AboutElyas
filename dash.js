@@ -72,48 +72,7 @@ $(document).ready(function() {
       });
   }
 
-  // Function to fetch download count from server
-  function fetchDownloadCount() {
-      $.ajax({
-          url: 'fetch_download_count.php',
-          type: 'GET',
-          dataType: 'json',
-          success: function(response) {
-              if (response.success) {
-                  // Update the download count in the DOM
-                  $('#download-count').text(response.count);
-              } else {
-                  console.error('Error fetching download count:', response.message);
-                  $('#download-count').text('Error');
-              }
-          },
-          error: function(xhr, status, error) {
-              console.error('Error fetching download count:', error);
-              $('#download-count').text('Error');
-          }
-      });
-  }
 
-  // Function to update download count
-  function updateDownloadCount() {
-      $.ajax({
-          url: 'insert_download_count.php',
-          type: 'POST',
-          dataType: 'json',
-          success: function(response) {
-              if (!response.success) {
-                  console.error('Error updating download count:', response.message);
-              }
-          },
-          error: function(xhr, status, error) {
-              console.error('Error updating download count:', error);
-          }
-      });
-  }
-
-  // Initial fetch of forms and download count when the page loads
-  fetchForms();
-  fetchDownloadCount();
 
   // Interval to periodically fetch forms and download count (every 5 seconds for example)
   setInterval(function() {
@@ -146,3 +105,5 @@ $(document).ready(function() {
       fetchForms(); // Refresh forms when navigating to Forms section
   });
 });
+
+

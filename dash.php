@@ -151,7 +151,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
           dataType: 'json',
           success: function(response) {
             if (response.success) {
-              // Update the download count in the DOM
               $('#download-count').text(response.count);
             } else {
               console.error('Error fetching download count:', response.message);
