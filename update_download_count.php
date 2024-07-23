@@ -1,23 +1,16 @@
 <?php
-$conn = new mysqli('localhost', 'root', '', 'contactform');
-if ($conn->connect_error) {
-    die(json_encode(['success' => false, 'message' => 'Connection Failed: ' . $conn->connect_error]));
-}
+include 'db_connect.php';
 
-// Check if action is update_download_count
-if (isset($_POST['action']) && $_POST['action'] === 'update_download_count') {
-
-    $update_query = "UPDATE download_counter SET count = count + 1 WHERE id = 1"; 
-    $result = $conn->query($update_query);
-    
-    if ($result) {
-        echo json_encode(['success' => true, 'message' => 'Download count updated successfully']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_download_count') {
+    // Insert a new row for each CV download
+    $query = "INSERT INTO action_log (action_type) VALUES ('download')";
+    if (mysqli_query($conn, $query)) {
+        // Increment the summary count
+        $summaryQuery = "UPDATE summary_counts SET total_count = total_count + 1 WHERE action_type = 'download'";
+        mysqli_query($conn, $summaryQuery);
+        echo json_encode(['success' => true]);
     } else {
         echo json_encode(['success' => false, 'message' => 'Error updating download count']);
     }
-} else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request']);
 }
-
-$conn->close();
 ?>

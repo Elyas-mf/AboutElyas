@@ -74,18 +74,8 @@ $(document).ready(function() {
 
 
 
-  // Interval to periodically fetch forms and download count (every 5 seconds for example)
-  setInterval(function() {
-      fetchForms();
-      fetchDownloadCount();
-  }, 5000); // Adjust interval as needed
 
-  // Click event handler for the download button (if you have one)
-  $('#download-button').click(function() {
-      updateDownloadCount();
-  });
 
-  // Click event handlers for navigation links
   $('#home-link').click(function(e) {
       e.preventDefault();
       $('.main').hide();
@@ -105,5 +95,6 @@ $(document).ready(function() {
       fetchForms(); // Refresh forms when navigating to Forms section
   });
 });
+
 
 

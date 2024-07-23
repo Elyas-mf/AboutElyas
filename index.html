@@ -44,7 +44,7 @@
         <a href="https://www.instagram.com/mduf?igsh=ZW10d3JpdGxwaDFp"><i class='bx bxl-instagram-alt'></i></a>
         <a href="http://Wa.me/+966565965936"><i class='bx bxl-whatsapp'></i></a>
       </div>
-      <a href="http://localhost/AboutMeHTML/update_download_count.php" class="btn" id="download-cv-btn">Download CV</a>
+      <a href="https://cdn.discordapp.com/attachments/274387678739562506/1254765916990734377/3379bc3b52c72ad5.pdf?ex=66985913&is=66970793&hm=846b453041db4680fe10ec20802fb9ef50ee2c7c885d9ae5cade1cf00336b2b5&" class="btn">Download CV</a>
     </div>
 
     <div class="home-img">
@@ -236,21 +236,27 @@
 
 
    <script>
-    $('#download-cv-btn').click(function(e) {
-  e.preventDefault();
-  $.ajax({
-    url: 'update_download_count.php',
-    type: 'POST',
-    data: { action: 'update_download_count' },
-    dataType: 'json',
-    success: function(response) {
-      console.log('CV download count updated successfully');
-    },
-    error: function(xhr, status, error) {
-      console.error('Error updating CV download count:', error);
-    }
+    $(document).ready(function() {
+  $(document).on('click', '.btn', function(e) {
+    e.preventDefault();
+    var downloadLink = $(this).attr('href');
+    $.ajax({
+      url: 'update_download_count.php',
+      type: 'POST',
+      data: { action: 'update_download_count' },
+      dataType: 'json',
+      success: function(response) {
+        console.log('CV download count updated successfully');
+        // After updating count, trigger download
+        window.location.href = downloadLink; // This initiates the download
+      },
+      error: function(xhr, status, error) {
+        console.error('Error updating CV download count:', error);
+      }
+    });
   });
 });
+
    </script>
 
 
@@ -271,6 +277,7 @@
     });
   });
 </script>
+
 
 
 

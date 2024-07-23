@@ -95,3 +95,39 @@ const typedd = new Typed('.multiple-text-about', {
 });
 
 
+$(document).ready(function() {
+  // Visitor count update
+  $.ajax({
+    url: 'update_visitor_count.php',
+    type: 'POST',
+    data: { action: 'update_visitor_count' },
+    dataType: 'json',
+    success: function(response) {
+      console.log('Visitor count updated successfully');
+    },
+    error: function(xhr, status, error) {
+      console.error('Error updating visitor count:', error);
+    }
+  });
+
+  // CV download count update
+  $('.btn').click(function(e) {
+    e.preventDefault();
+    var downloadLink = $(this).attr('href');
+    $.ajax({
+      url: 'update_download_count.php',
+      type: 'POST',
+      data: { action: 'update_download_count' },
+      dataType: 'json',
+      success: function(response) {
+        console.log('CV download count updated successfully');
+        // Trigger download after updating count
+        window.location.href = downloadLink;
+      },
+      error: function(xhr, status, error) {
+        console.error('Error updating CV download count:', error);
+      }
+    });
+  });
+});
+

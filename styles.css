@@ -159,10 +159,18 @@ span {
   color: var(--second-bg-color);
   letter-spacing: .1rem;
   font-weight: 600;
-  transition: .5s ease;
+  transition: .2s
 }
 
 .btn:hover {
+  color: var(--main-color);
+  background-color: #1f242d;
+  transform: translate(-0.25rem, -0.25rem);
+  box-shadow: 0.25rem 0.25rem black
+}
+
+.btn:active {
+  transform: translate(0);
   box-shadow: none;
 }
 

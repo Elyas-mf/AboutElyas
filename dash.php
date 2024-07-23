@@ -15,10 +15,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <link rel="stylesheet" href="da.css" />
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-  <style>
-    /* Your existing CSS styles here */
-
-  </style>
+  <link rel="stylesheet" href="https://pyscript.net/releases/2024.7.1/core.css">
+  <script type="module" src="https://pyscript.net/releases/2024.7.1/core.js"></script>
 </head>
 <body>
   <aside class="sidebar">
@@ -63,26 +61,26 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   </aside>
 
   <div class="container">
-  <section class="main" id="main">
-  
-  <h2>My status</h2>
-  <div class="grid-container">
-    <div class="box">
-      <h3>Visitors</h3>
-      <p id="visitor-count" style="color: white;">Loading..</p>
-      
-    </div>
-    <div class="box">
-      <h3>Download CV Click</h3>
-      <p id="download-count" style="color: white;">Loading...</p>
-    </div>
-  </div>
-</section>
-
+    <section class="main" id="main">
+      <h2>My Status</h2>
+      <div class="grid-container">
+        <div class="box">
+          <h3>Visitors</h3>
+          <p id="visitor-count" style="color: white;">Loading..</p>
+        </div>
+        <div class="box">
+          <h3>Download CV Click</h3>
+          <p id="download-count" style="color: white;">Loading...</p>
+        </div>
+        <div class="box_plot">
+          <h3>Analysis Plot</h3>
+          <img id="analysis-plot" src="" alt="Analysis Plot" style="width: 300%; max-width: 600px;"/>
+        </div>
+      </div>
+    </section>
 
     <section class="main" id="profile" style="display: none;">
-      <h1>Profile Section</h1>
-      <p>Your profile section content goes here.</p>
+      <h1>Profile</h1>
     </section>
 
     <section class="main" id="forms" style="display: none;">
@@ -106,69 +104,59 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </section>
   </div>
 
-  <!-- Link to your JavaScript file -->
   <script src="dash.js"></script>
-
   <script>
     $(document).ready(function() {
-      // Function to fetch visitor count from server
-      function fetchVisitorCount() {
+      // Function to fetch summary counts from the server
+      function fetchSummaryCounts() {
         $.ajax({
-          url: 'fetch_visitor_count.php',
+          url: 'fetch_summary_counts.php',
           type: 'GET',
           dataType: 'json',
           success: function(response) {
             if (response.success) {
-              // Update the visitor count in the DOM
-              $('#visitor-count').text(response.count);
+              $('#visitor-count').text(response.total_visits);
+              $('#download-count').text(response.total_downloads);
             } else {
-              console.error('Error fetching visitor count:', response.message);
+              console.error('Error fetching summary counts:', response.message);
               $('#visitor-count').text('Error');
-            }
-          },
-          error: function(xhr, status, error) {
-            console.error('Error fetching visitor count:', error);
-            $('#visitor-count').text('Error');
-          }
-        });
-      }
-
-      // Initial fetch of visitor count when page loads
-      fetchVisitorCount();
-
-      // Interval to periodically fetch visitor count (every 5 seconds for example)
-      setInterval(fetchVisitorCount, 5000); // Adjust interval as needed
-    });
-  </script>
-
-  <script>
-    $(document).ready(function() {
-      // Function to fetch download count from server
-      function fetchDownloadCount() {
-        $.ajax({
-          url: 'fetch_download_count.php',
-          type: 'GET',
-          dataType: 'json',
-          success: function(response) {
-            if (response.success) {
-              $('#download-count').text(response.count);
-            } else {
-              console.error('Error fetching download count:', response.message);
               $('#download-count').text('Error');
             }
           },
           error: function(xhr, status, error) {
-            console.error('Error fetching download count:', error);
+            console.error('Error fetching summary counts:', error);
+            $('#visitor-count').text('Error');
             $('#download-count').text('Error');
           }
         });
       }
 
-      // Initial fetch of download count when page loads
-      fetchDownloadCount();
+      // Function to fetch the plot from the Flask server
+      function fetchPlot() {
+        $.ajax({
+          url: 'http://127.0.0.1:5000/api/time_series',
+          type: 'GET',
+          dataType: 'json',
+          success: function(response) {
+            if (response.plot) {
+              $('#analysis-plot').attr('src', 'data:image/png;base64,' + response.plot);
+            } else {
+              console.error('Error fetching plot:', response.message);
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error('Error fetching plot:', error);
+          }
+        });
+      }
 
-      // Interval to periodically fetch download count (every 5 seconds for example)
-      setInterval(fetchDownloadCount, 5000); // Adjust interval as needed
+      // Initial fetch of summary counts and plot when the page loads
+      fetchSummaryCounts();
+      fetchPlot();
+
+      // Interval to periodically fetch summary counts and plot
+      setInterval(fetchSummaryCounts, 5000); // Adjust interval as needed
+      setInterval(fetchPlot, 60000); // Fetch the plot every 60 seconds
     });
   </script>
 </body>

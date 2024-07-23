@@ -171,14 +171,15 @@ body {
   
   width: 95%;
   border-collapse: collapse;
-  background-color: #fff;
+  background-color: #414958;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   overflow: hidden;
   margin-left:2%;
+  color: white;
 }
 .table thead {
-  background-color: #f2f2f2;
+  background-color: #202938;
 }
 .table th,
 .table td {
@@ -187,16 +188,16 @@ body {
   border-bottom: 1px solid #ddd;
 }
 .table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #202938;
 }
 .table tbody tr:hover {
-  background-color: #e9ecef;
+  background-color: #364560;
 }
 .table td:last-child {
   text-align: center;
 }
 .table .btn {
-  background-color: #dc3545;
+  background-color: #78040f;
   color: #fff;
   padding: 5px 10px;
   border: none;
@@ -213,20 +214,19 @@ body {
   padding: 20px;
 }
 
-/* Grid container to hold the boxes */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
-  gap: 20px; /* Gap between grid items */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px; 
   width: 50%;
   
 
 }
 
 
-/* Style for each box */
+
 .box {
-  background-color: #161a2d; /* White background */
+  background-color: #161a2d; 
   padding: 20px; /* Padding inside the box */
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 0 50% rgba(0, 0, 0, 0.1); /* Shadow for a bit of depth */
@@ -236,8 +236,27 @@ body {
   border-color: rgb(0, 0, 0);
 }
 
+.box_plot {
+  background-color: #161a2d; 
+  padding: 20px; /* Padding inside the box */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 0 50% rgba(0, 0, 0, 0.1); /* Shadow for a bit of depth */
+  padding-bottom: 10%;
+  width: 235%;
+  
+  
+  border-style: outset;
+  border-width: 2px;
+  border-color: rgb(0, 0, 0);
+}
+
 /* Heading style for each box */
 .box h3 {
+  margin-bottom: 10px; /* Space below heading */
+  color: #ffffff; /* Dark text color */
+}
+
+.box_plot h3 {
   margin-bottom: 10px; /* Space below heading */
   color: #ffffff; /* Dark text color */
 }
