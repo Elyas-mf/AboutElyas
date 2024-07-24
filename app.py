@@ -1,78 +1,97 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
+import mysql.connector
 import pandas as pd
 import matplotlib.pyplot as plt
-import io
 import base64
-import mysql.connector
-from mysql.connector import Error
+from io import BytesIO
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)  # This will enable CORS for all routes
 
-# Set the Matplotlib backend to 'Agg' for non-GUI rendering
+# Use Agg backend for headless environments
 plt.switch_backend('Agg')
 
-# Database connection
 def get_db_connection():
-    try:
-        conn = mysql.connector.connect(
-            host='localhost',
-            user='root',  # Update with your MySQL username
-            password='',  # Update with your MySQL password
-            database='contactform'
-        )
-        if conn.is_connected():
-            return conn
-    except Error as e:
-        print(f"Error: {e}")
-        return None
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",  # Replace with your password if you have one
+        database="contactform"
+    )
 
-@app.route('/api/time_series', methods=['GET'])
+@app.route('/api/time_series')
 def time_series():
     conn = get_db_connection()
-    if conn is None:
-        return jsonify({'error': 'Failed to connect to database'}), 500
-
-    cursor = conn.cursor(dictionary=True)
-    query = "SELECT date, action_type FROM action_log"
-    cursor.execute(query)
-    result = cursor.fetchall()
-    cursor.close()
+    
+    query = "SELECT action_type, date FROM action_log"
+    df = pd.read_sql(query, conn)
     conn.close()
 
-    # Convert result to a pandas DataFrame
-    df = pd.DataFrame(result)
-
-    # Convert date to datetime and set as index
-    df['date'] = pd.to_datetime(df['date'], errors='coerce')
-    df.dropna(subset=['date'], inplace=True)
+    df['date'] = pd.to_datetime(df['date'])
     df.set_index('date', inplace=True)
+    df.sort_index(inplace=True)
 
-    # Resample and count actions per day
-    df_visits = df[df['action_type'] == 'visit'].resample('D').size()
-    df_downloads = df[df['action_type'] == 'download'].resample('D').size()
+    # Get the current date
+    today = datetime.now().date()
+    start_date = datetime(today.year, today.month, today.day, 0, 0, 0)
+    end_date = datetime(today.year, today.month, today.day, 23, 59, 59)
 
-    # Create the plot
-    plt.figure(figsize=(10, 5))
-    plt.plot(df_visits, label='Visits', marker='o')
-    plt.plot(df_downloads, label='Downloads', marker='x')
-    plt.title('Daily Visits and Downloads')
-    plt.xlabel('Date')
-    plt.ylabel('Count')
-    plt.legend()
-    plt.grid(True)
+    # Debug statements to check date range
+    print(f"Data available from {df.index.min()} to {df.index.max()}")
+    print(f"Filtering data from {start_date} to {end_date}")
 
-    # Save the plot to a BytesIO object
-    img = io.BytesIO()
-    plt.savefig(img, format='png')
-    img.seek(0)
-    plt.close()
+    # Filter data to the specified range
+    df_filtered = df[(df.index >= start_date) & (df.index <= end_date)]
 
-    # Encode the image as a base64 string
-    img_base64 = base64.b64encode(img.getvalue()).decode('utf-8')
+    # Group by hour and action type, then count occurrences
+    df_grouped = df_filtered.groupby([pd.Grouper(freq='H'), 'action_type']).size().unstack(fill_value=0)
 
-    return jsonify({'plot': img_base64})
+    # Create a DataFrame with all hours in the specified range
+    all_hours = pd.date_range(start=start_date, end=end_date, freq='H')
+    df_all_hours = pd.DataFrame(index=all_hours)
+    
+    # Merge the grouped data with the all_hours DataFrame to ensure all hours are included
+    df_merged = df_all_hours.merge(df_grouped, left_index=True, right_index=True, how='left').fillna(0)
+
+    print(f"Resampled DataFrame with all hours:\n{df_merged}")
+
+    # Apply custom style
+    plt.style.use('dark_background')
+    colors = plt.cm.tab10.colors
+
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    for idx, action_type in enumerate(df_merged.columns):
+        df_merged[action_type].plot(ax=ax, label=action_type, color=colors[idx % len(colors)], linewidth=2, marker='o')
+
+    plt.title(f'Hourly Action Counts for {today.strftime("%B %d, %Y")}', fontsize=16, fontweight='bold', color='white')
+    plt.xlabel('Time', fontsize=14, color='white')
+    plt.ylabel('Count', fontsize=14, color='white')
+    plt.legend(title='Action Type', title_fontsize='13', fontsize='11')
+    plt.xticks(rotation=45, color='white')
+    plt.yticks(color='white')
+    
+    # Customize x-axis to show hours
+    ax.set_xlim([start_date, end_date])
+    ax.xaxis.set_major_formatter(plt.FixedFormatter(all_hours.strftime("%H:%M")))
+
+    # Customize the background color
+    ax.set_facecolor('#161a2d')
+    fig.patch.set_facecolor('#161a2d')
+    fig.patch.set_alpha(1.0)
+
+    # Add grid
+    ax.grid(True, which='both', linestyle='--', linewidth=0.5, color='gray')
+
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    image_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
+    plt.close(fig)
+
+    return jsonify({'plot': image_base64})
 
 if __name__ == '__main__':
     app.run(debug=True)
