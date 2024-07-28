@@ -58,7 +58,7 @@ def time_series():
     print(f"Resampled DataFrame with all hours:\n{df_merged}")
 
     # Apply custom style
-    plt.style.use('dark_background')
+    
     colors = plt.cm.tab10.colors
 
     fig, ax = plt.subplots(figsize=(12, 6))

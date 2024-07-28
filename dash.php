@@ -74,7 +74,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </div>
         <div class="box_plot">
           <h3>Analysis Plot</h3>
-          <img id="analysis-plot" src="" alt="Analysis Plot" style="width: 300%; max-width: 600px;"/>
+          <img id="analysis-plot" src="" alt="Analysis Plot" style="width: 550%; max-width: 600px;"/>
         </div>
       </div>
     </section>
